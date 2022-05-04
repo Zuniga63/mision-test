@@ -1,32 +1,45 @@
+/**
+ * @param {Number} x
+ * @param {Number} y
+ * @returns {object}
+ */
+export const createRobot = (x, y) => {
+  const validateX = (x) => {
+    if (x < 0 || x > 10) throw "El valor de X debe estar entre 0 y 10";
+  };
 
-const createRobot = (x, y) => {
-//     // lanza error si x o y están fuera de los límites (0 a 10)
+  const validateY = (y) => {
+    if (y < 0 || y > 10) throw "El valor de Y debe estar entre 0 y 10";
+  };
 
-    let _x = x;
-    let _y = y;
+  validateX(x);
+  validateY(y);
 
-    if( _x < 0 || _x > 10){
-        throw 'El valor de X debe estar entre 0 y 10'
-    }else if( _y < 0 || _y > 10 ){
-        throw 'El valor de Y debe estar entre 0 y 10'
+  let _x = x;
+  let _y = y;
+
+  return {
+    moveUp() {
+      _y++;
+      validateY(_y);
+    },
+    moveDown() {
+      _y--;
+      validateY(_y);
+    },
+    moveLeft() {
+      _x--;
+      validateX(_x);
+    },
+    moveRight() {
+      _x++;
+      validateX(_x);
+    },
+    get getX () {
+      return _x;
+    },
+    get getY(){
+      return _y;
     }
-   
-    return {
-        moveUp: () => [_x, _y += 1],
-        moveDown: () => [_x, _y -= 1],
-        moveLeft: () => [_x -= 1, _y],
-        moveRight: () => [_x += 1, _y],
-        getX: () => [_x],
-        getY: () => [_y],
-
-
-       // moveUp - incrementa y en 1
-       // moveDown - decrementa y en 1.
-       // moveLeft - decrementa x en 1.
-       // moveRight - incrementa x en 1
-       // getX - retorna x
-       // getY - retorna y
-    }
-  }
-
-  module.exports = {createRobot}
+  };
+};

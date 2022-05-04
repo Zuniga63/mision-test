@@ -1,58 +1,65 @@
-const { createRobot } =  require("./robot");
+import { createRobot } from "./robot.js";
 
+describe("createRobot", () => {
+  test("value x is outter scope", () => {
+    expect(() => createRobot(-1, 0)).toThrow();
+  });
 
+  test("value y is outter scope", () => {
+    expect(() => createRobot(0, -1)).toThrow();
+  });
 
-describe('createRobot', () => {
+  test("get value of x", () => {
+    const robot = createRobot(3, 2);
+    expect(robot.getX).toBe(3);
+  });
 
-    test('value x is outter scope', () => {
-        try{
-            createRobot(-1,0);
-        }catch(error){
-            expect(error).toEqual('El valor de X debe estar entre 0 y 10')
-        }
-    })
+  test("get value of y", () => {
+    const robot = createRobot(3, 7);
+    expect(robot.getY).toBe(7);
+  });
 
-    test('value y is outter scope', () => {
-        try{
-            createRobot(0,12);
-        }catch(error){
-            expect(error).toEqual('El valor de Y debe estar entre 0 y 10')
-        }
-    })
+  test("move up on y", () => {
+    const robot = createRobot(0, 0);
+    robot.moveUp();
+    expect(robot.getY).toEqual(1);
+  });
 
-    test('move up on y', () => {
-        const moveUpY = createRobot(0,0).moveUp;
-        expect(moveUpY()).toEqual([0,1]);
-    })
+  test("move up on y and out of range", () => {
+    const robot = createRobot(0, 10);
+    expect(() => robot.moveUp()).toThrow();
+  });
 
-    test('move up on y', () => {
-        const moveUpY = createRobot(0,0).moveUp;
-        moveUpY();
-        expect(moveUpY()).toEqual([0,2]);
-    })
+  test("move down on y", () => {
+    const robot = createRobot(0, 1);
+    robot.moveDown();
+    expect(robot.getY).toEqual(0);
+  });
 
-    test('move down on y', () => {
-        const moveDownY = createRobot(0,1).moveDown;
-        expect(moveDownY()).toEqual([0,0]);
-    })
+  test("move down on y and out of range", () => {
+    const robot = createRobot(0, 0);
+    expect(() => robot.moveDown()).toThrow();
+  });
 
-    test('move left on x', () => {
-        const moveLeftX = createRobot(1,0).moveLeft;
-        expect(moveLeftX()).toEqual([0,0]);
-    })
+  test("move the robot to right", () => {
+    const robot = createRobot(0, 0);
+    robot.moveRight();
+    expect(robot.getX).toEqual(1);
+  });
 
-    test('move right on x', () => {
-        const moveRightX = createRobot(0,0).moveRight;
-        expect(moveRightX()).toEqual([1,0]);
-    })
+  test("move the robot to right and out of range", () => {
+    const robot = createRobot(10, 10);
+    expect(() => robot.moveRight()).toThrow();
+  });
 
-    test('get value of x', () => {
-        const getValueX = createRobot(3,2).getX;
-        expect(getValueX()[0]).toBe(3);
-    })
+  test("move the robot to left", () => {
+    const robot = createRobot(1, 0);
+    robot.moveLeft();
+    expect(robot.getX).toEqual(0);
+  });
 
-    test('get value of y', () => {
-        const getValueY = createRobot(3,7).getY;
-        expect(getValueY()[0]).toBe(7);
-    })
-}) 
+  test("move the robot to left and out of range", () => {
+    const robot = createRobot(0, 0);
+    expect(() => robot.moveLeft()).toThrow();
+  });
+});
