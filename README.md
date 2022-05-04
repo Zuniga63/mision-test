@@ -1,7 +1,7 @@
 # mision-test
 
 Crea un metodo crearRobot y una batería de pruebas unitarias para verificar si 
-la funcionalidad funciona correctamente.
+la funcionalidad es correcta para movimientos basicos.
 
 ***
 
